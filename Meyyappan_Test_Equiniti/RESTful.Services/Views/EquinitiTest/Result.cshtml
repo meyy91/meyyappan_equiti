@@ -1,0 +1,44 @@
+﻿@model List<Test.Models.FinancialData>
+@{
+    ViewBag.Title = "Result";
+}
+
+<h2>Result</h2>
+
+<table border="1">
+    <tr>
+        <td>Id</td>
+        <td>ApplicationId</td>
+        <td>Amount</td>
+        <td>PostingDate</td>
+        <td>Summary</td>
+        <td>Type</td>
+        <td>IsCleared</td>
+        <td>ClearedDate</td>
+    </tr>
+
+    @if (Model != null && Model.Count > 0)
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.ApplicationId</td>
+                <td>@item.Amount</td>
+                <td>@item.PostingDate</td>
+                <td>@item.Summary</td>
+                <td>@item.Type</td>
+                <td>@item.IsCleared</td>
+                <td>@item.ClearedDate</td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td colspan="8"> No Records</td>
+        </tr>
+    }
+
+</table>
+

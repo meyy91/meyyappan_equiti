@@ -1,0 +1,38 @@
+﻿@model Test.Models.FinancialData
+@{
+    ViewBag.Title = "Get";
+}
+
+<h2>Get</h2>
+<table border="1">
+    <tr>
+        <td>Id</td>
+        <td>ApplicationId</td>
+        <td>Amount</td>
+        <td>PostingDate</td>
+        <td>Summary</td>
+        <td>Type</td>
+        <td>IsCleared</td>
+        <td>ClearedDate</td>
+    </tr>
+    @if (Model != null && !string.IsNullOrEmpty(Model.Id))
+    {
+        <tr>
+            <td>@Model.Id</td>
+            <td>@Model.ApplicationId</td>
+            <td>@Model.Amount</td>
+            <td>@Model.PostingDate</td>
+            <td>@Model.Summary</td>
+            <td>@Model.Type</td>
+            <td>@Model.IsCleared</td>
+            <td>@Model.ClearedDate</td>
+        </tr>
+    }
+    else
+    {
+        <tr>
+            <td colspan="8"> No Records</td>
+        </tr>
+    }
+</table>
+

@@ -14,49 +14,91 @@ namespace RESTful.Services.Controllers
     public class EquinitiTestController : Controller
     {
         IFinanceBusinessLogics _iFinanceBusinessLogics = null;
+        List<FinancialData> findataSession = null;
 
         public EquinitiTestController(IFinanceBusinessLogics iFinanceBusinessLogics)
         {
             _iFinanceBusinessLogics = iFinanceBusinessLogics;
         }
 
-        public EquinitiTestController() {
-            _iFinanceBusinessLogics = new FinanceBusinessLogics(new FinanceDataAccess((IDictionary<string, FinancialData>)Session["financialData"]));
+        public EquinitiTestController()
+        {
+            findataSession = new List<FinancialData>();
+            //Session["financialData"] = findataSession;
+            //(List<FinancialData>)Session["financialData"])
+
+            _iFinanceBusinessLogics = new FinanceBusinessLogics(new FinanceDataAccess(findataSession));
         }
 
         [HttpGet]
-        [Route("getfinancialdatabyid{id}")]
+        //[Route("getfinancialdatabyid/{id}")]
         public ActionResult Get(string id)
         {
             FinancialData financialData = _iFinanceBusinessLogics.GetFinancialDataById(id);
-            return View(financialData);
+
+            if (Session["financialData"] != null)
+            {
+                List<FinancialData> financialDataFromSession = (List<FinancialData>)Session["financialData"];
+
+                return View(financialDataFromSession.FirstOrDefault(x => x.Id == id));
+            }
+            else {
+                return View(new FinancialData());
+            }
         }
 
         [HttpPost]
-        [Route("savefinancialdata")]
+        //[Route("savefinancialdata")]
         public ActionResult Post(List<FinancialData> financialData)
         {
-            _iFinanceBusinessLogics.SaveFinancialData(financialData);
+            //_iFinanceBusinessLogics.SaveFinancialData(financialData);
 
-            return View();
+            if (Session["financialData"] != null)
+            {
+                List<FinancialData> financialDataFromSession = (List<FinancialData>)Session["financialData"];
+
+                financialDataFromSession.AddRange(financialData);
+
+                Session["financialData"] = financialDataFromSession;
+            }
+            else {
+                List<FinancialData> financialDataFromSession = new List<FinancialData>();
+                financialDataFromSession.AddRange(financialData);
+
+                Session["financialData"] = financialDataFromSession;
+            }
+
+            return RedirectToAction("Result");
         }
 
         [HttpPut]
-        [Route("updatefinancialdata")]
+        //[Route("updatefinancialdata")]
         public ActionResult Update(List<FinancialData> financialData)
         {
             _iFinanceBusinessLogics.SaveFinancialData(financialData);
 
-            return View();
+            return RedirectToAction("Result");
         }
 
         [HttpDelete]
-        [Route("deletefinancialdatabyid/{id}")]
+        //[Route("deletefinancialdatabyid/{id}")]
         public ActionResult Delete(string id)
         {
             _iFinanceBusinessLogics.DeleteFinancialDataById(id);
 
-            return View();
+            return RedirectToAction("Result");
+        }
+
+        public ActionResult Result()
+        {
+            if (Session["financialData"] != null)
+            {
+                return View((List<FinancialData>)Session["financialData"]);
+            }
+            else
+            {
+                return View(new List<FinancialData>());
+            }
         }
     }
 }

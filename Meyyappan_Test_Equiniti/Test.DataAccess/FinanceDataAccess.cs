@@ -10,19 +10,19 @@ namespace Test.DataAccess
 {
     public class FinanceDataAccess : IFinanceDataAccess
     {
-        IDictionary<string, FinancialData> _sessionFinancialData = null;
+        List<FinancialData> _sessionFinancialData = null;
 
-        public FinanceDataAccess(IDictionary<string, FinancialData> financialData)
+        public FinanceDataAccess(List<FinancialData> financialData)
         {
             _sessionFinancialData = financialData;
         }
 
-       
+
         public FinancialData GetFinancialDataById(string id)
         {
             if (id != null)
             {
-                return _sessionFinancialData[id];
+                return _sessionFinancialData.Where(x => x.Id == id).FirstOrDefault();
             }
 
             return null;
@@ -34,7 +34,7 @@ namespace Test.DataAccess
             {
                 if (data != null && _sessionFinancialData != null)
                 {
-                    _sessionFinancialData[data.Id] = data;
+                    _sessionFinancialData.Add(data);
                 }
             }
         }
@@ -43,7 +43,9 @@ namespace Test.DataAccess
         {
             if (_sessionFinancialData != null)
             {
-                _sessionFinancialData[id] = null;
+               var delData =  _sessionFinancialData.Where(x => x.Id == id).FirstOrDefault();
+
+                _sessionFinancialData.Remove(delData);
             }
         }
     }
