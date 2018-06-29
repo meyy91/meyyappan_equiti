@@ -10,5 +10,6 @@ namespace Test.Interfaces
     public interface IFinanceBusinessLogics
     {
         FinancialData GetFinancialDataById(string id);
+        void SaveFinancialData(List<FinancialData> financialData);
     }
 }

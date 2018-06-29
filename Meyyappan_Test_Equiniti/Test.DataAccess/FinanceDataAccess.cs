@@ -14,5 +14,10 @@ namespace Test.DataAccess
         {
             throw new NotImplementedException();
         }
+
+        public void SaveFinancialData(List<FinancialData> financialData)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

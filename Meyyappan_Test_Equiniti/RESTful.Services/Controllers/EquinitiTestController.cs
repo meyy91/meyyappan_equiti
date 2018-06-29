@@ -28,8 +28,9 @@ namespace RESTful.Services.Controllers
 
         [HttpPost]
         [Route("savefinancialdata")]
-        public ActionResult Post()
+        public ActionResult Post(List<FinancialData> financialData)
         {
+            _iFinanceBusinessLogics.SaveFinancialData(financialData);
             return View();
         }
 

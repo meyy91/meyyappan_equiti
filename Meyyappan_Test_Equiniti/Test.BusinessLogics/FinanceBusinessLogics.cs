@@ -21,5 +21,10 @@ namespace Test.BusinessLogics
         {
             return _iFinanceDataAccess.GetFinancialDataById(id);
         }
+
+        public void SaveFinancialData(List<FinancialData> financialData)
+        {
+            _iFinanceDataAccess.SaveFinancialData(financialData);
+        }
     }
 }
