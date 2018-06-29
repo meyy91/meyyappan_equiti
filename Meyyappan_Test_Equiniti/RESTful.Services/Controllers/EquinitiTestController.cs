@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Test.BusinessLogics;
+using Test.DataAccess;
 using Test.Interfaces;
 using Test.Models;
 
@@ -18,8 +20,12 @@ namespace RESTful.Services.Controllers
             _iFinanceBusinessLogics = iFinanceBusinessLogics;
         }
 
+        public EquinitiTestController() {
+            _iFinanceBusinessLogics = new FinanceBusinessLogics(new FinanceDataAccess((IDictionary<string, FinancialData>)Session["financialData"]));
+        }
+
         [HttpGet]
-        [Route("getfinancialdatabyid")]
+        [Route("getfinancialdatabyid{id}")]
         public ActionResult Get(string id)
         {
             FinancialData financialData = _iFinanceBusinessLogics.GetFinancialDataById(id);
@@ -31,20 +37,25 @@ namespace RESTful.Services.Controllers
         public ActionResult Post(List<FinancialData> financialData)
         {
             _iFinanceBusinessLogics.SaveFinancialData(financialData);
+
             return View();
         }
 
         [HttpPut]
         [Route("updatefinancialdata")]
-        public ActionResult Update()
+        public ActionResult Update(List<FinancialData> financialData)
         {
+            _iFinanceBusinessLogics.SaveFinancialData(financialData);
+
             return View();
         }
 
         [HttpDelete]
-        [Route("deletefinancialdatabyid")]
-        public ActionResult Delete()
+        [Route("deletefinancialdatabyid/{id}")]
+        public ActionResult Delete(string id)
         {
+            _iFinanceBusinessLogics.DeleteFinancialDataById(id);
+
             return View();
         }
     }

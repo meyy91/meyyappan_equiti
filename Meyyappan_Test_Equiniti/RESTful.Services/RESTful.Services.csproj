@@ -293,6 +293,14 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Test.BusinessLogics\Test.BusinessLogics.csproj">
+      <Project>{89ae4678-c5f8-43a2-9e17-b8495a329925}</Project>
+      <Name>Test.BusinessLogics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Test.DataAccess\Test.DataAccess.csproj">
+      <Project>{d1f693a6-10dc-4c47-a521-82fd8c65e3d0}</Project>
+      <Name>Test.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Test.Interfaces\Test.Interfaces.csproj">
       <Project>{901a03ca-f554-45f1-ba47-0210ccc854d0}</Project>
       <Name>Test.Interfaces</Name>

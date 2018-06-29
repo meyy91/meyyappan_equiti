@@ -11,5 +11,6 @@ namespace Test.Interfaces
     {
         FinancialData GetFinancialDataById(string id);
         void SaveFinancialData(List<FinancialData> financialData);
+        void DeleteFinancialDataById(string financialData);
     }
 }

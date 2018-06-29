@@ -17,6 +17,7 @@ namespace Test.BusinessLogics
             _iFinanceDataAccess = iFinanceDataAccess;
         }
 
+
         public FinancialData GetFinancialDataById(string id)
         {
             return _iFinanceDataAccess.GetFinancialDataById(id);
@@ -25,6 +26,11 @@ namespace Test.BusinessLogics
         public void SaveFinancialData(List<FinancialData> financialData)
         {
             _iFinanceDataAccess.SaveFinancialData(financialData);
+        }
+
+        public void DeleteFinancialDataById(string id)
+        {
+            _iFinanceDataAccess.DeleteFinancialDataById(id);
         }
     }
 }
